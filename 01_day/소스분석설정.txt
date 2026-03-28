@@ -1,0 +1,28 @@
+
+안드로이드 태그 생성하기
+
+$ sudo apt  install exuberant-ctags
+$ cd ~/aosp
+$ find . -type f \( -name '*.c' -o -name '*.cc' -o -name '*.cpp' -o -name '*.h' -o -name '*.hpp' \) -exec ctags -o c_tags -a {} +
+$ ls 
+c_tags
+
+리눅스 커널 태그 생성하기
+
+$ cd ~/android-kernel
+$ ctags -R
+$ ls 
+tags
+
+
+vi 설정 (tag path)
+
+$ vi ~/vimrc
+set cindent
+set autoindent
+set ts=4
+set sw=4
+
+set tags+=~/android-kernel/tags
+set tags+=~/aosp/c_tags
+
