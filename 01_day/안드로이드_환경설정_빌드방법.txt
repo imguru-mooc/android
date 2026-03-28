@@ -1,0 +1,51 @@
+안드로이드 환경설정 및 소스 다운로드
+
+빌드 환경 
+우분투 버전 : ubuntu-24.04.4-live-server-amd64
+안드로이드 버전 : android 16
+memory : 32 G
+disk : 400 G
+
+# apt update
+# apt install repo  zip unzip
+
+# mkdir aosp
+# cd aosp
+
+# git config --global user.email "you@example.com"
+# git config --global user.name "Your Name"
+# repo init -u https://android.googlesource.com/platform/manifest -b android-latest-release
+# repo sync -c -j$(nproc)
+
+
+안드로이드 빌드 방법
+
+빌드 설정
+# source build/envsetup.sh
+# lunch sdk_car_x86_64-aosp_current-userdebug
+
+아래 코드 수정
+# vi device/generic/car/common/car.mk
+#PRODUCT_SYSTEM_PROPERTIES += cppd.connectvhal.Timeoutmillis=60000   <= 주석 취함
+PRODUCT_PRODUCT_PROPERTIES += cppd.connectvhal.Timeoutmillis=60000 <= 이 내용으로 수정
+
+# vi device/generic/car/emulator/car_emulator_vendor.mk
+#PRODUCT_SYSTEM_PROPERTIES += cppd.connectvhal.Timeoutmillis=60000   <= 주석 취함
+PRODUCT_PRODUCT_PROPERTIES += cppd.connectvhal.Timeoutmillis=60000 <= 이 내용으로 수정
+
+빌드
+# m -j$(nproc)
+
+빌드 확인 
+# ls out/target/product/emulator_car64_x86_64
+   system.img  userdata.img  kernel-ranchu ramdisk.img vendor.img
+
+에뮬레이터용 이미지 빌드
+# m emu_img_zip
+
+빌드 확인 
+# ls out/target/product/emulator_car64_x86_64
+   sdk-repo-linux-system-images.zip
+
+
+

@@ -1,0 +1,60 @@
+안드로이드 커널 디렉토리 생성 및 이동
+$ cd ~
+$ mkdir -p ~/android-kernel
+$ cd ~/android-kernel
+
+커널 다운로드 
+$ repo init -u https://android.googlesource.com/kernel/manifest -b common-android16-6.12 --depth=1
+$ repo sync -c -j$(nproc) --no-tags -q
+
+커널 빌드
+$ tools/bazel run //common:kernel_x86_64_dist -- --destdir=out/gki_modules
+$ tools/bazel run //common-modules/virtual-device:virtual_device_x86_64_dist -- --destdir=out/goldfish_modules
+
+커널 이미지 복사
+$ cd ~/aosp/prebuilts/qemu-kernel/x86_64/6.12
+$ mv kernel-6.12 kernel-6.12-orig
+$ cp ~/android-kernel/out/gki_modules/bzImage  kernel-6.12
+
+커널 모듈 복사
+$ mv gki_modules gki_modules-orig
+$ mkdir gki_modules
+$ cd gki_modules
+$ cp ~/android-kernel/out/gki_modules/*.ko .
+
+가상 머신 모듈 복사
+$ cd ~/aosp/prebuilts/qemu-kernel/x86_64/6.12
+$ mv goldfish_modules goldfish_modules-orig
+$ mkdir goldfish_modules
+$ cd goldfish_modules
+$ cp ~/android-kernel/out/goldfish_modules/*.ko .
+
+안드로이드 리빌드
+$ cd ~/aosp
+$ source build/envsetup.sh
+$ lunch sdk_car_x86_64-aosp_current-userdebug
+$ m -j$(nproc)
+$ m emu_img_zip
+$ ls ~/source/out/target/product/emulator_car64_x86_64
+sdk-repo-linux-system-images.zip  <--- 파일 생성 확인
+
+windows에서 
+winscp를 이용한 이미지 다운로드
+$ sdk-repo-linux-system-images.zip 파일 windows C:\aosp16 디렉토리로 다운로드 후 압축 해제
+
+run_custom_car_emulator.bat 파일 수정 후 실행
+
+@echo off
+set EMULATOR=%LOCALAPPDATA%\Android\Sdk\emulator\emulator.exe
+set AVD_NAME=Automotive_1408p_landscape
+set IMAGES=C:\aosp16\x86_64
+
+%EMULATOR% ^
+-sysdir %IMAGES% ^
+-avd %AVD_NAME% ^
+-writable-system ^
+-no-snapshot-load ^
+-no-snapshot-save ^
+-verbose ^
+-show-kernel ^
+-qemu   -append "androidboot.selinux=permissive"
