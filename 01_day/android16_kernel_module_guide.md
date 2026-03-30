@@ -362,10 +362,12 @@ KO=$(find bazel-bin/ -name "binder_monitor.ko" | head -1)
 # 에뮬레이터로 전송
 adb root
 adb push binder_monitor.ko /data
-adb shell insmod /data/binder_monitor.ko
+adb shell
+
+insmod /data/binder_monitor.ko
 
 # 테스트
-adb shell cat /proc/binder_monitor
+cat /proc/binder_monitor
 # === Binder Monitor Module ===
 # Kernel: 6.12.x-android16-...
 # Module uptime: 1234 ms
@@ -373,11 +375,11 @@ adb shell cat /proc/binder_monitor
 # Current process: cat (PID 12345, UID 0)
 #
 # [Tip] Binder 상태 확인:
-#   cat /sys/kernel/debug/binder/state
-#   cat /sys/kernel/debug/binder/stats
+#   cat /dev/binderfs/binder_logs/state
+#   cat /dev/binderfs/binder_logs/stats
 
 # 정리
-adb shell rmmod binder_monitor
+rmmod binder_monitor
 ```
 
 ---
@@ -559,8 +561,10 @@ KO=$(find bazel-bin/ -name "proc_watcher.ko" | head -1)
 
 # 에뮬레이터 업로드
 adb root
-adb push "$KO" /data/local/tmp/
-adb shell insmod /data/local/tmp/proc_watcher.ko
+adb push proc_watcher.ko /data/
+adb shell
+
+insmod /data/proc_watcher.ko
 
 # 에뮬레이터에서 앱을 열고 닫으면서 이벤트 관찰
 adb shell cat /proc/proc_watcher
@@ -573,7 +577,7 @@ adb shell cat /proc/proc_watcher
 #   ...
 
 # 정리
-adb shell rmmod proc_watcher
+rmmod proc_watcher
 ```
 
 > ⚠ kprobe가 커널 설정에서 비활성화되어 있으면 등록 실패 로그가 나옵니다. 이 경우 커널 빌드 시 `CONFIG_KPROBES=y` defconfig fragment를 추가하세요.
