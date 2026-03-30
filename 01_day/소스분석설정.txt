@@ -17,7 +17,7 @@ tags
 
 vi 설정 (tag path)
 
-$ vi ~/vimrc
+$ vi ~/.vimrc
 set cindent
 set autoindent
 set ts=4
