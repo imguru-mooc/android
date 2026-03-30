@@ -8,6 +8,7 @@ $ repo init -u https://android.googlesource.com/kernel/manifest -b common-androi
 $ repo sync -c -j$(nproc) --no-tags -q
 
 커널 빌드
+$ sudo apt install rsync -y
 $ tools/bazel run //common:kernel_x86_64_dist -- --destdir=out/gki_modules
 $ tools/bazel run //common-modules/virtual-device:virtual_device_x86_64_dist -- --destdir=out/goldfish_modules
 
