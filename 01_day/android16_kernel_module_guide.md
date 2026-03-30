@@ -293,8 +293,8 @@ static int binder_mon_show(struct seq_file *m, void *v)
                current->comm, current->pid,
                from_kuid_munged(current_user_ns(), current_cred()->uid));
     seq_printf(m, "\n[Tip] Binder 상태 확인:\n");
-    seq_printf(m, "  cat /sys/kernel/debug/binder/state\n");
-    seq_printf(m, "  cat /sys/kernel/debug/binder/stats\n");
+    seq_printf(m, "  cat /dev/binderfs/binder_logs/state\n");
+    seq_printf(m, "  cat /dev/binderfs/binder_logs/stats\n");
 
     return 0;
 }
