@@ -197,25 +197,26 @@ KO=$(find ~/android-kernel/bazel-bin/ -name "hello_android.ko" | head -1)
 
 
 # 에뮬레이터에 업로드
-adb push "$KO" /data
+adb push hello_android.ko /data
 
 # 전송 확인
-adb shell ls -la /data/hello_android.ko
+adb shell
+# ls -la /data/hello_android.ko
 ```
 
 ### 2-2. 모듈 로드 (insmod)
 
 ```bash
 # 모듈 로드
-adb shell insmod /data/hello_android.ko
+insmod /data/hello_android.ko
 
 # 로드 확인
-adb shell lsmod
+lsmod
 # Module                  Size  Used by
 # hello_android           16384  0
 
 # 커널 로그에서 모듈 메시지 확인
-adb shell dmesg | grep hello_android
+dmesg | grep hello_android
 # [  xxx.xxxxxx] hello_android: Module loaded! (Android 16 Kernel)
 # [  xxx.xxxxxx] hello_android: /proc/hello_android created successfully
 ```
@@ -224,7 +225,7 @@ adb shell dmesg | grep hello_android
 
 ```bash
 # /proc/hello_android 읽기
-adb shell cat /proc/hello_android
+cat /proc/hello_android
 # Hello from Android 16 Kernel Module!
 ```
 
@@ -232,18 +233,18 @@ adb shell cat /proc/hello_android
 
 ```bash
 # 모듈 언로드
-adb shell rmmod hello_android
+rmmod hello_android
 
 # 언로드 확인
-adb shell lsmod | grep hello
+lsmod | grep hello
 # (출력 없음 → 정상 언로드됨)
 
 # 커널 로그 확인
-adb shell dmesg | tail -3
+dmesg | tail -3
 # [  xxx.xxxxxx] hello_android: Module unloaded. Goodbye!
 
 # /proc 엔트리도 제거됨
-adb shell cat /proc/hello_android
+cat /proc/hello_android
 # cat: /proc/hello_android: No such file or directory
 ```
 
