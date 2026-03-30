@@ -1,13 +1,13 @@
 
-¾Èµå·ÎÀÌµå ÅÂ±× »ı¼ºÇÏ±â
+ì•ˆë“œë¡œì´ë“œ íƒœê·¸ ìƒì„±í•˜ê¸°
 
 $ sudo apt  install exuberant-ctags
-$ cd ~/aosp
+$ cd ~/android
 $ find . -type f \( -name '*.c' -o -name '*.cc' -o -name '*.cpp' -o -name '*.h' -o -name '*.hpp' \) -exec ctags -o c_tags -a {} +
 $ ls 
 c_tags
 
-¸®´ª½º Ä¿³Î ÅÂ±× »ı¼ºÇÏ±â
+ë¦¬ëˆ…ìŠ¤ ì»¤ë„ íƒœê·¸ ìƒì„±í•˜ê¸°
 
 $ cd ~/android-kernel
 $ ctags -R
@@ -15,7 +15,7 @@ $ ls
 tags
 
 
-vi ¼³Á¤ (tag path)
+vi ì„¤ì • (tag path)
 
 $ vi ~/vimrc
 set cindent
@@ -24,5 +24,5 @@ set ts=4
 set sw=4
 
 set tags+=~/android-kernel/tags
-set tags+=~/aosp/c_tags
+set tags+=~/android/c_tags
 
