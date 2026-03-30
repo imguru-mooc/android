@@ -171,6 +171,7 @@ modinfo "$KO"
 # author:         Android Framework Training
 # vermagic:       6.12.x-android16-... SMP preempt mod_unload
 
+$ sudo apt install file
 file "$KO"
 # hello_android.ko: ELF 64-bit LSB relocatable, x86-64, ...
 ```
