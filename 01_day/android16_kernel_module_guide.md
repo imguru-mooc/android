@@ -160,7 +160,7 @@ tools/bazel build //my_modules/hello:hello_android
 find bazel-bin/ -name "hello_android.ko"
 
 # 모듈 정보 확인
-$ sudo apt isntall kmod
+$ sudo apt install kmod
 
 KO=$(find bazel-bin/ -name "hello_android.ko" | head -1)
 
