@@ -1,0 +1,21 @@
+빌드 환경 설정 
+$ cd ~/android
+$ source build/envsetup.sh
+$ lunch sdk_car_x86_64-aosp_current-userdebug
+
+사용자 정의 소스 빌드 
+$ cd sp_test
+$ mm -j$(nproc)
+
+winscp로 windows 에 다운로드 
+실행 파일 위치 
+out/target/product/emulator_car64_x86_64/system/bin/my_sp
+
+windows cmd 창 명령 
+c:\> adb root
+c:\> adb push my_sp /data
+
+에뮬레이터에서 실행 
+emulator_car64_x86_64:/ # chmod 755 ./data/my_sp
+emulator_car64_x86_64:/ # /data/my_sp
+
