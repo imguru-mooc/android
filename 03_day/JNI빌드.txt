@@ -6,3 +6,7 @@ $ java Hello
 
 네번때 소스 빌드 
 $ g++ invocation.cpp -I/home/worker/android/prebuilts/jdk/jdk21/linux-x86/include/ -I/home/worker/android/prebuilts/jdk/jdk21/linux-x86/include/linux -L/home/worker/android/prebuilts/jdk/jdk25/linux-x86/lib/server/ -ljvm
+
+실행
+$ export LD_LIBRARY_PATH=/home/worker/android/prebuilts/jdk/jdk25/linux-x86/lib/server/
+$ ./a.out
