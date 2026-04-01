@@ -1,0 +1,5 @@
+$ javac  Hello.java
+$ gcc -fPIC -c Hello.c -I/home/worker/android/prebuilts/jdk/jdk21/linux-x86/include/ -I/home/worker/android/prebuilts/jdk/jdk21/linux-x86/include/linux
+$ gcc -shared Hello.o -o libHello.so
+$ export LD_LIBRARY_PATH=.
+$ java Hello
