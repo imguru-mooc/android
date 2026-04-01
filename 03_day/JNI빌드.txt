@@ -3,3 +3,6 @@ $ gcc -fPIC -c Hello.c -I/home/worker/android/prebuilts/jdk/jdk21/linux-x86/incl
 $ gcc -shared Hello.o -o libHello.so
 $ export LD_LIBRARY_PATH=.
 $ java Hello
+
+네번때 소스 빌드 
+$ g++ invocation.cpp -I/home/worker/android/prebuilts/jdk/jdk21/linux-x86/include/ -I/home/worker/android/prebuilts/jdk/jdk21/linux-x86/include/linux -L/home/worker/android/prebuilts/jdk/jdk25/linux-x86/lib/server/ -ljvm
